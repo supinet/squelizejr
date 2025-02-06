@@ -27,3 +27,6 @@ npx sequelize-cli seed:generate --name demo-enrollment
 npx sequelize-cli db:seed --seed 20250131202650-demo-category.js
 npx sequelize-cli db:seed --seed 20250131203050-demo-course.js
 npx sequelize-cli db:seed --seed 20250131203112-demo-enrollment.js
+
+- add deletedAt column
+npx sequelize-cli db:migrate

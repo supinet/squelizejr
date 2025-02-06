@@ -3,22 +3,22 @@ class Controller {
         this.entityService = entityService;
     }
 
-    async getAll(req, res, next) {
+    async getAllActive(req, res, next) {
         try {
             const records =  await this.entityService.getAll();
             return res.status(200).json(records);
         } catch (error) {
-            next(error);
+            return res.status(500).json({ error: error.message });
         }
     }
 
     async getById(req, res, next) {
         const { id  } = req.params;
         try {
-            const record = await this.entityService.getRecordById(Number(id));
+            const record = await this.entityService.getById(Number(id));
             return res.status(200).json(record);
         } catch (error) {
-            next(error);
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -28,7 +28,7 @@ class Controller {
             const newRecord = await this.entityService.create(record);
             return res.status(200).json(newRecord);
         } catch(error) {
-            next(error);
+            return res.status(500).json({ error: error.message });
         }
     }
 
@@ -42,7 +42,7 @@ class Controller {
             }
             return res.status(200).json({ message:  'record updated'});
         } catch (error) {
-            next(error);
+            return res.status(500).json({ error: error.message });
         }
     }
 
