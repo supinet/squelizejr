@@ -5,8 +5,8 @@ class Services {
         this.model = modelName;
     }
 
-    async getAll() {
-        return dataSource[this.model].findAll();    
+    async getAll(where = {}) {
+        return dataSource[this.model].findAll({ where: { ...where }});    
     }
 
     async getAllByScope(scope) {
@@ -17,14 +17,23 @@ class Services {
         return dataSource[this.model].findByPk(id);
     }
 
+    async getRecord(where) {
+        return dataSource[this.model].findOne({ where: { ...where } })
+    }
+
+    async getAndCountRecord(options) {
+        return dataSource[this.model].findAndCountAll({ ...options });
+    }
+
     async create(recordData) {
         return dataSource[this.model].create(recordData);
     }
 
-    async update(record, id) {
-        const records = dataSource[this.model].update(
-            record, {
-                where: { id: id }
+    async update(record, where, t = {}) {
+        const records = dataSource[this.model]
+            .update(record, {
+                where: { ...where },
+                transaction: t
             });
 
         if (records[0] === 0) {

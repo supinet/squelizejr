@@ -1,3 +1,5 @@
+const parseIds = require('../utils/parseStringHelper.js');
+
 class Controller {
     constructor(entityService) {
         this.entityService = entityService;
@@ -22,6 +24,17 @@ class Controller {
         }
     }
 
+    async getRecord(req, res, next) {
+        const { ...params  } = req.params;
+        const where = parseIds(params);
+        try {
+            const record = await this.entityService.getRecord(where);
+            return res.status(200).json(record);
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
     async create(req, res, next) {
         const record = req.body;
         try {
@@ -33,10 +46,11 @@ class Controller {
     }
 
     async update(req, res) {
-        const { id } = req.params;
+        const { ...params } = req.params;
         const records = req.body;
+        const where = parseIds(params);
         try {
-            const updated = await this.entityService.update(records, Number(id));
+            const updated = await this.entityService.update(records, where);
             if (!updated) {
                 return res.statu(400).json({ message: 'record not updated' });
             }

@@ -1,4 +1,4 @@
-https://github.com/alura-cursos/3374-nodejs-express-sequelize/tree/arquivos-iniciais
+https://github.com/alura-cursos/3414-node-sequelize-II/tree/aula-3
 
 ## structure
 
