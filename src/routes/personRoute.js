@@ -12,7 +12,8 @@ router.get('/person/:id', (req, res) => personController.getById(req, res));
 router.post('/person', (req, res) => personController.create(req, res));
 router.put('/person/:id', (req, res) => personController.update(req, res));
 router.delete('/person/:id', (req, res) => personController.delete(req, res));
-router.get('/person/:studentId/enrollment', (req, res) => personController.getEnrollments(req, res));
+router.get('/person/:studentId/enrollment', (req, res) => personController.getActiveEnrollments(req, res));
+router.get('/person/:studentId/enrollment/all', (req, res) => personController.getAllEnrollments(req, res));
 router.post('/person/:studentId/enrollment', (req, res) => enrollmentController.create(req, res));
 
 module.exports = router;
